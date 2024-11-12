@@ -19,49 +19,32 @@
                 <!--Caja Login-->
                 <div class="caja__trasera__login">
                     <h3>Ya tienes una cuenta</h3>
-                    <p>¡Mira que hay de nuevo en la comunidad!</p>
-                    <button id="btn__iniciar-sesion" class="btn">Iniciar Sesion</button>
+                    <p>¡Incia sesión y accede al panel principal!</p>
+                    <button id="btn__iniciar-sesion" class="btn">Iniciar Sesión</button>
                 </div>
                 <!--Caja Register-->
                 <div class="caja__trasera__register">
-                    <h3>¿Aun no tienes una cuenta?</h3>
-                    <p>¡Crea una Cuenta Para Iniciar Conversaciones Asombrosas!</p>
-                    <button id="btn__registrarse" class="btn">Registrarse</button>
+                    <h3>¿Olvidaste tu constraseña?</h3>
+                    <p>¡Solicita un código temporal para restaurarla!</p>
+                    <button id="btn__registrarse" class="btn">Recuperar Contraseña</button>
                 </div>
             </div>
             <!--Formulario de Loggin y Registro-->
             <div class="container__login__register">
                 <!--Login-->
                 <form action="php/login_user_be.php" method="POST" class="formulario__login">
-                    <h2>Iniciar Sesion</h2>
+                    <h2>Iniciar Sesión</h2>
                     <input type="text" placeholder="Correo Electronico" name="correo" required>
                     <input type="password" placeholder="Contraseña" name="clave" required>
                     <button>Entrar</button>
                 </form>
                 <!--Registro-->
-                <form action="php/registro_usuario_be.php" method="POST" class="formulario__register" id="registro-form">
-                    <h2>Registrarse</h2>
-                    <label for="">*Nombre</label>
-                    <input type="text" placeholder="Registra el primer nombre del usuario" name="nombre" required minlength="3" maxlength="32">
-                    <label for="">*Apellido</label>
-                    <input type="text" placeholder="Registra el primer apellido del usuario" name="apellido" required minlength="3" maxlength="32">
-                    <label for="">*Telefono</label>
-                    <input type="number" placeholder="Ingresa el numero de telefono del usuario" name="telefono" required minlength="11" maxlength="11">
-                    <label for="">*Correo Electronico</label>
+                <form action="php/recuperar__contrasena" method="POST" class="formulario__register" id="registro-form">
+                    <h2>Recuperar Contraseña</h2>
+                    <label for="">*Ingresa tu correo electrónico y 
+                    se te enviará un códgio temporal para acceder y restaurar la contraseña.</label>
                     <input type="email" placeholder="Ingresa un correo electrónico válido" name="correo" required minlength="12" maxlength="64">
-                    <label for="opcion">* Selecciona el nivel de acceso del usuario:</label> 
-                    <select id="opcion" name="nivel_acceso" required> 
-                        <option value="" disabled selected>Elige una opción</option> 
-                        <option value="Super_admin">Super Admin</option> 
-                        <option value="Admin">Administrador</option> 
-                        <option value="Personal">Personal</option> 
-                    </select>
-                    <br>
-                    <label for="">*Contraseña</label>
-                    <input type="password" placeholder="Ingresa la contraseña del usuario" name="clave" required minlength="10" maxlength="50" id="password">
-                    <label for="confirm_password">*Confirmar Contraseña:</label> 
-                    <input type="password" id="confirm_password" name="confirm_password" required placeholder="Repite tu contraseña" minlength="10" maxlength="50"><br><br>
-                    <button>Registrarse</button>
+                    <button>Enviar Código</button>
                 </form>
             </div>
         </div>

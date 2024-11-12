@@ -10,8 +10,9 @@
     $validar_login = mysqli_query($conexion, "SELECT * FROM usuarios WHERE correo='$correo' AND clave='$clave'");
 
     if(mysqli_num_rows($validar_login) > 0){
-        $_SESSION['usuarios'] = $correo;
-        header("location: foro.php");
+        $_SESSION['usuarios'] = $correo && $clave;
+        $_SESSION['loggedin'] = true;
+        header("location: principal.php");
         exit();
     }else{
         echo'
