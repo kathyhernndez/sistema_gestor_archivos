@@ -68,10 +68,10 @@
         </div>
     
         <nav class="menu">
-          <a href="#">Inicio</a>
-          <a href="#">Nosotros</a>
-          <a href="#">Blog</a>
-          <a href="#">Contacto</a>
+        <a href="gestion_usuarios.php">Usuarios</a>
+          <a href="#">Almacenamiento</a>
+          <a href="#">Perfil</a>
+          <a class="btn" href="logout.php" placeholder="Cerrar Sesion">Cerrar Sesion</a>
         </nav>
       </div>
       
@@ -89,11 +89,8 @@
           <a href="#"> Videos</a>
           <a href="#"> Documentos</a>
           <a href="#"> Audios</a>
-          <a href="gestion_usuarios.php"> Gestionar Usuarios</a>
-          <a href="#"> Gestionar Almacenamiento</a>
-
-          <div action="logout.php" method="POST"> 
-          <a class="btn" href="logout.php" placeholder="Cerrar Sesion"> <button>Cerrar Sesion</button></a>          </div>
+          
+        
         </nav>
 
         <label for="btn-menu">✖️</label>
