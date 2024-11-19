@@ -21,39 +21,90 @@
 
     include 'cabecera.php';
 ?>
-    <body>
 
-    <div action="logout.php" method="POST">
-    <h1>BIENVENIDOS AL IMALAYA</h1>
 
-    <h2>Esto solo lo deberia ver el admin y super admin</h2>
-    <!--Registro-->
-    <form action="php/registro_usuario_be.php" method="POST" class="formulario__register" id="registro-form">
-        <h2>Registrarse</h2>
-        <label for="">*Nombre</label>
-            <input type="text" placeholder="Registra el primer nombre del usuario" name="nombre" required minlength="3" maxlength="32">
-        <label for="">*Apellido</label>
-            <input type="text" placeholder="Registra el primer apellido del usuario" name="apellido" required minlength="3" maxlength="32">
-        <label for="">*Telefono</label>
-            <input type="number" placeholder="Ingresa el numero de telefono del usuario" name="telefono" required minlength="11" maxlength="11">
-        <label for="">*Correo Electronico</label>
-            <input type="email" placeholder="Ingresa un correo electrónico válido" name="correo" required minlength="12" maxlength="64">
-        <label for="opcion">* Selecciona el nivel de acceso del usuario:</label> 
-            <select id="opcion" name="nivel_acceso" required> 
-            <option value="" disabled selected>Elige una opción</option> 
-            <option value="Super_admin">Super Admin</option> 
-            <option value="Admin">Administrador</option> 
-            <option value="Personal">Personal</option> 
-            </select>
-            <br>
-        <label for="">*Contraseña</label>
-            <input type="password" placeholder="Ingresa la contraseña del usuario" name="clave" required minlength="10" maxlength="50" id="password">
-        <label for="confirm_password">*Confirmar Contraseña:</label> 
-            <input type="password" id="confirm_password" name="confirm_password" required placeholder="Repite tu contraseña" minlength="10" maxlength="50"><br><br>
-        <button>Registrarse</button>
-    </form>
-    <a class="btn" href="logout.php" placeholder="Cerrar Sesion"> <button>Cerrar Sesion</button></a>
 
+<body class="body_dashboard">
+    <div class="container">
+      <div class="card">
+        <figure>
+          <img src="/assets/image/photo_5033033224133127557_m.jpg">
+        </figure>
+        <div class="contenido">
+          <h3> Algo </h3>
+          <p> Quiero vacaviones ya </p>
+          <a href="#"> Leer más </a>
+        </div>
+      </div>
+      <div class="card">
+        <figure>
+          <img src="/assets/image/photo_5033033224133127558_x.jpg">
+        </figure>
+        <div class="contenido">
+          <h3> Algo 1</h3>
+          <p> Quiero vacaviones ya </p>
+          <a href="#"> Leer más </a>
+        </div>
+      </div>
+      <div class="card">
+        <figure>
+          <img src="/assets/image/photo_5033033224133127559_y.jpg">
+        </figure>
+        <div class="contenido">
+          <h3> Algo 2</h3>
+          <p> Quiero vacaviones ya </p>
+          <a href="#"> Leer más </a>
+        </div>
+      </div>
+    </div>
+    <header class="header">
+      <div class="container">
+        <div class="btn-menu">
+          <label for="btn-menu">☰</label>
+        </div>
+        <div></div>
+        <div class="logo">
+          <h1>Sistema Gestor de Archivos</h1>
+        </div>
+    
+        <nav class="menu">
+          <a href="#">Inicio</a>
+          <a href="#">Nosotros</a>
+          <a href="#">Blog</a>
+          <a href="#">Contacto</a>
+        </nav>
+      </div>
+      
+    </header>
+    <div class="capa">
+      
+    </div>
+    <!--Barra lateral --------------->
+      
+    <input type="checkbox" id="btn-menu" />
+    <div class="container-menu">
+      <div class="cont-menu">
+        <nav>
+          <a href="#"> Fotos</a>
+          <a href="#"> Videos</a>
+          <a href="#"> Documentos</a>
+          <a href="#"> Audios</a>
+          <a href="gestion_usuarios.php"> Gestionar Usuarios</a>
+          <a href="#"> Gestionar Almacenamiento</a>
+
+          <div action="logout.php" method="POST"> 
+          <a class="btn" href="logout.php" placeholder="Cerrar Sesion"> <button>Cerrar Sesion</button></a>          </div>
+        </nav>
+
+        <label for="btn-menu">✖️</label>
+        
+      </div>
+    
+    
+  </body>
+
+  
+    
 
     
-    </body>
+
