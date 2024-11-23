@@ -33,7 +33,28 @@
     background-position: center; 
     background-repeat: no-repeat;
   }
+  .btn_archivos{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra del texto */
+    padding: 20px;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    background-color: var(--primary-color);
+    cursor: pointer;
+    transition: all 400ms ease;
+    display: block;
+  }
+
+  .btn_archivos:hover {
+    background-color: var(--primary-color-dark);
+    border-left: 5px solid #c7c7c7;
+  }
+
   </style>
+
+
     <div class="container">
       <div class="card">
         <figure>
@@ -77,7 +98,7 @@
         </div>
     
         <nav class="menu">
-        <a href="gestion_usuarios.php">Usuarios</a>
+        <a href="gestion_usuarios.php">Gestionar Usuarios</a>
           <a href="#">Almacenamiento</a>
           <a href="#">Perfil</a>
           <a class="btn" href="logout.php" placeholder="Cerrar Sesion">Cerrar Sesion</a>
@@ -98,6 +119,8 @@
           <a href="#"> Videos</a>
           <a href="#"> Documentos</a>
           <a href="#"> Audios</a>
+          <button type="button" class="btn_archivos"><a href="prueba.php">Subir Nuevo Archivo</a></button>
+
           
         
         </nav>
