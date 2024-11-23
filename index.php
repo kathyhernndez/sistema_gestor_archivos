@@ -12,6 +12,16 @@
 </head>
 
 <body>
+<style>
+ body {
+        background-image: url(assets/image/fondo.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+</style>
     <main>
         <!--Contendor de la Web Application-->
         <div class="container__all">

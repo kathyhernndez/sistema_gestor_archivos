@@ -25,6 +25,15 @@
 
 
 <body class="body_dashboard">
+  <style>
+    .body_dashboard {
+    background-image: url(../assets/image/photo_5033033224133127559_y.jpg);
+    background-attachment: fixed;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+  }
+  </style>
     <div class="container">
       <div class="card">
         <figure>
