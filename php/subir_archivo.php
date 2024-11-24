@@ -1,12 +1,11 @@
 <?php
-include 'conexion_be.php'; // Asegúrate de que este archivo contiene la conexión correcta a la base de datos
+include 'conexion_be.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre_archivo = $_POST['nombre_archivo'];
+    
     $archivo = $_FILES['archivo'];
-    $nombre_carpeta = $_POST['nombre_carpeta'];
-    $categoria_carpeta = $_POST['categoria_carpeta'];
-
+    
     // Verificar si el archivo fue subido sin errores
     if ($archivo['error'] === UPLOAD_ERR_OK) {
         $tipo_archivo = $archivo['type'];
@@ -45,3 +44,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $conexion->close();
 ?>
+

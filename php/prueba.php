@@ -28,25 +28,100 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subir Archivos</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-    <h1>Subir Archivos</h1>
-    <form action="subir_archivo.php" method="POST" enctype="multipart/form-data">
-        <label for="archivo">Seleccione un archivo:</label>
-        <input type="file" id="archivo" name="archivo" required>
-        <br>
-        <label for="name">Escribe un nombre para el archivo:</label>
-        <input type="text" id="nombre_archivo" name="nombre_archivo" required>
-        <br>
-        <label for="name">Añade la Categoria de la Carpeta</label>
-        <input type="text" id="categoria_carpeta" name="categoria_carpeta" required>
-        <br>
-        <label for="name">Añade el nombre de la carpeta</label>
-        <input type="text" id="nombre_carpeta" name="nombre_carpeta" required>
-        <br>
-        <button type="submit">Subir</button>
-        <a href="prueba.php">Atrás</a>
-    </form>
+<form id="uploadForm" enctype="multipart/form-data"> 
+    <label for="nombre_archivo">Nombre del archivo:</label> 
+    <input type="text" name="nombre_archivo" id="nombre_archivo" required> 
+    <br> 
+    <label for="archivo">Archivo:</label> 
+    <input type="file" name="archivo" id="archivo" required> 
+    <br> 
+    <button type="submit">Subir</button> 
+    </form> 
+    <script> 
+
+/* Funcion subir Archivos */
+
+    $(document).ready(function() { 
+        $('#uploadForm').on('submit', function(e) { e.preventDefault(); 
+            var formData = new FormData(this); 
+            $.ajax({ url: 'subir_archivo.php', 
+                // Archivo PHP que manejará la subida 
+                type: 'POST', 
+                data: formData, 
+                contentType: false, 
+                processData: false, 
+                success: function(response) { 
+                    alert(response); 
+                    location.reload(); }, 
+                    error: function() { 
+                        alert('Error al subir el archivo.'); 
+                        } 
+                        }); 
+                        }); 
+                        });
+
+
+                        /* Funcion eliminar Archivos */
+    function eliminarArchivo(id) { 
+        if (confirm('¿Estás seguro de que deseas eliminar este archivo?')) 
+        { $.ajax({ url: 'eliminar_archivo.php', type: 'POST', 
+            data: { id: id }, success: function(response) { alert(response); 
+                location.reload(); }, 
+                error: function() { alert('Error al eliminar el archivo.');
+                 } }); 
+                } } 
+    
+    /* Funcion editar Archivos */
+    function editarArchivo(id) { 
+        var nuevoNombre = prompt('Introduce el nuevo nombre del archivo:');
+         if (nuevoNombre) { 
+            $.ajax({ url: 'editar_archivo.php', 
+                type: 'POST', 
+                data: { id: id, nombre_archivo: nuevoNombre },
+                success: function(response) { 
+                    alert(response); location.reload(); }, 
+                    error: function() { 
+                        alert('Error al editar el archivo.'); } 
+                    }); } }
+    </script>
+
+
+<!-- consultar base de datos -->
+
+<h1>Lista de Archivos Subidos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre de Archivo</th>
+                <th>Tipo de Archivo</th>
+                <th>Ruta de Archivo</th>
+                <th>Fecha de Subida</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            include 'consultar_archivos.php';
+            ?>
+        </tbody>
+        </table>
+
 </body>
-</html>
+</html> 
