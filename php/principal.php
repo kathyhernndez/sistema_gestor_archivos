@@ -241,7 +241,7 @@ body.modal-open {
           <div class="content">
           <form id="uploadForm" enctype="multipart/form-data"> 
     <label for="nombre_archivo">Nombre del archivo:</label> 
-    <input type="text" name="nombre_archivo" id="nombre_archivo" required> 
+    <input type="text" name="nombre_archivo" id="nombre_archivo" required maxlength="150"> 
     <br> 
     <label for="archivo">Archivo:</label> 
     <input type="file" name="archivo" id="archivo" required> 
