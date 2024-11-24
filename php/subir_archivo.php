@@ -9,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verificar si el archivo fue subido sin errores
     if ($archivo['error'] === UPLOAD_ERR_OK) {
         $tipo_archivo = $archivo['type'];
-        $ruta_archivo = 'uploads/' . basename($archivo['name']);
+        $nuevo_nombre_archivo = time() . '_' . preg_replace('/[^a-zA-Z0-9_\.-]/', '_', basename($archivo['name'])); 
+        $ruta_archivo = 'uploads/' . $nuevo_nombre_archivo;
 
         // Crear el directorio 'uploads' si no existe
         if (!is_dir('uploads')) {

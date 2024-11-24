@@ -69,7 +69,7 @@
             box-shadow: 0px 1px 10px rgba(0,0,0,0.2);
             cursor: default;
             transition: all 400ms ease;
-            margin-top: 200px;
+            margin-top: 20px;
         }
         table, th, td {
             border: 1px solid black;
@@ -97,10 +97,73 @@
           color: #fff;
         }
 
+        .table-container { 
+          max-height: 400px; /* Ajusta el tamaño según tus necesidades */ 
+          overflow-y: scroll; 
+          border: 1px solid #ddd; 
+          margin-top: 200px; }
+
+        
+  /* Estilos adicionales para dispositivos móviles */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%; /* Aumentamos el ancho para móviles */
+    height: auto;
+}
+}
+
+.modal_content h1 p{
+  padding: 30px;
+}
+
+/* Estilo para el fondo de la ventana modal */
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal_content {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+  padding: 60px 0; /* Añadimos padding para centrar el modal verticalmente */
+  box-sizing: border-box; /* Asegura que el padding se incluya en el tamaño total */
+}
+
+/* Estilo para el contenido de la ventana modal */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 90%;
+  max-width: 1200px;
+  border-radius: 10px;
+  position: relative;
+}
+/* Estilo para el botón de cerrar */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
   </style>
 
 
-    <div class="container">
+    <div class="container table-container">
       <!-- consultar base de datos -->
     <table class="tabla">
         <thead>
@@ -158,8 +221,9 @@
           <button class="filter-button btn_archivos" data-filter="all">Todos los archivos</button>
           
           <button type="button" class="btn_archivos"><a href="prueba.php">Subir Nuevo Archivo</a></button>
-          <button type="button" class="btn_archivos">Cargar Archivo</button>
+          <button type="button" class="btn_archivos openModalBtn" data-modal="modal1">Cargar Archivo</button>
 
+          
           
         
         </nav>
@@ -167,7 +231,27 @@
         <label for="btn-menu">✖️</label>
         
       </div>
-    
+    <!--modal boton-->
+    <div id="modal1" class="modal_content">
+        <div class="modal-content blog-post">
+          <span class="close" data-modal="modal1">&times;</span>
+        
+          <!--cargar archivos formulario-->
+          <h3 class="intro"><strong>Cargar Nuevo Archivo</strong></h3>
+          <div class="content">
+          <form id="uploadForm" enctype="multipart/form-data"> 
+    <label for="nombre_archivo">Nombre del archivo:</label> 
+    <input type="text" name="nombre_archivo" id="nombre_archivo" required> 
+    <br> 
+    <label for="archivo">Archivo:</label> 
+    <input type="file" name="archivo" id="archivo" required> 
+    <br> 
+    <button type="submit">Subir</button> 
+    </form> 
+          </div>
+          
+
+        </div>
     <script>
 
 /* Funcion subir Archivos */
@@ -224,9 +308,34 @@ $(document).ready(function() {
                         alert('Error al editar el archivo.'); } 
                     }); } }
 
+          // MODALS
+document.querySelectorAll('.openModalBtn').forEach(button => {
+    button.onclick = function() {
+        const modalId = this.getAttribute('data-modal');
+        document.getElementById(modalId).style.display = "block";
+    }
+});
+
+document.querySelectorAll('.close').forEach(span => {
+    span.onclick = function() {
+        const modalId = this.getAttribute('data-modal');
+        document.getElementById(modalId).style.display = "none";
+    }
+});
+
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal_content')) {
+        event.target.style.display = "none";
+    }
+}
+
     </script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../assets/js/script.js"></script>
   </body>
 
+</html>
   
     
 

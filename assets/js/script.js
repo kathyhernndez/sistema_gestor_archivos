@@ -66,3 +66,8 @@ document.getElementById('registro-form').addEventListener('submit', function(eve
     if (password !== confirmPassword) 
         { alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.'); 
             event.preventDefault(); }});
+
+
+            
+
+
