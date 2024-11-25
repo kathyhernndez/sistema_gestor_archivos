@@ -244,7 +244,7 @@ body.modal-open {
           <button class="filter-button btn_archivos" data-filter="image/jpeg,image/png">Imagenes</button>
           <button class="filter-button btn_archivos" data-filter="application/pdf,application/msword">Documentos</button>
           <button class="filter-button btn_archivos" data-filter="video/mp4">Videos</button>
-          <button class="filter-button btn_archivos" data-filter="audio/mp3">Audios</button>
+          <button class="filter-button btn_archivos" data-filter="audio/mp3,audio/mpeg">Audios</button>
           <button class="filter-button btn_archivos" data-filter="all">Todos los archivos</button>
           <button type="button" class="btn_archivos openModalBtn" data-modal="modal1">Cargar Archivo</button>
 <!-- 

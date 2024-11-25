@@ -6,6 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $archivo = $_FILES['archivo'];
     
+    //$archivo_extension = pathinfo($archivo['nombre_archivo'], PATHINFO_EXTENSION); //OBTENER EXTENSION DEL ARCHIVO
+    //$fileName = $nombre_archivo . '.' . $archivo_extension; //RENOMBRRAR ARCHIVO
+    //$targetFilePath = $uploadDir .$fileName;
+
+
+
+
     // Verificar si el archivo fue subido sin errores
     if ($archivo['error'] === UPLOAD_ERR_OK) {
         $tipo_archivo = $archivo['type'];
