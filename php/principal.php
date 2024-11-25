@@ -70,7 +70,7 @@ include 'cabecera.php';
     outline: none;
     border: none;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 200;
     color: var(--text-dark);
     background-color: var(--primary-color);
     cursor: pointer;
@@ -128,6 +128,7 @@ include 'cabecera.php';
           border: none; 
           margin-top: 200px;
           margin-bottom: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         
