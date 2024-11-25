@@ -1,27 +1,50 @@
 <?php
-
 session_start();
-    if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true){
-        echo'
-            <script>
-            alert("Por Favor debes Iniciar Sesion");
-            window.location = "../index.php";
-            </script>
-            ';
+
+$tiempo_max_inactividad = 300; // 5 minutos = 300 segundos
+
+if (isset($_SESSION['ultimo_acceso'])) {
+    $inactivo = time() - $_SESSION['ultimo_acceso'];
+    if ($inactivo >= $tiempo_max_inactividad) {
+        session_unset();
         session_destroy();
-        die();
-
-    header("Cache-Control: no-cache, must-revalidate"); 
-        // HTTP 1.1 
-    header("Pragma: no-cache"); 
-        // HTTP 1.0 
-    header("Expires: Wen, 12 november 2024 10:48:00 GMT");
+        // Eliminar cookies 
+        setcookie('PHPSESSID', '', time() - 3600, '/');
+        echo '
+        <script>
+        alert("Tu sesión ha expirado por inactividad.");
+        window.location = "../index.php";
+        </script>
+        ';
+        exit();
     }
+}
 
+$_SESSION['ultimo_acceso'] = time();
 
-    include 'cabecera.php';
+// Establecer cookies
+setcookie("ultimo_acceso", $_SESSION['ultimo_acceso'], time() + $tiempo_max_inactividad, "/");
 
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    echo '
+    <script>
+    alert("Por Favor debes Iniciar Sesion");
+    window.location = "../index.php";
+    </script>
+    ';
+    session_destroy();
+    die();
+}
+
+header("Cache-Control: no-cache, must-revalidate");
+// HTTP 1.1 
+header("Pragma: no-cache");
+// HTTP 1.0 
+header("Expires: Wen, 12 november 2024 10:48:00 GMT");
+
+include 'cabecera.php';
 ?>
+
 
 <body class="body_dashboard">
      <!--Registro-->

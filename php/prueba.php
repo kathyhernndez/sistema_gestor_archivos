@@ -18,7 +18,6 @@ session_start();
     header("Expires: Wen, 12 november 2024 10:48:00 GMT");
     }
 
-
     include 'cabecera.php';
 
 ?>
@@ -123,5 +122,64 @@ session_start();
         </tbody>
         </table>
 
+
+<!-- tabla bitacora -->
+
+
+
+
+
+<h1>Bitácora de Acciones del Sistema</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Usuario</th>
+                <th>Acción</th>
+                <th>Descripción</th>
+                <th>Fecha y Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Conexión a la base de datos
+            include 'conexion_be.php';
+
+            // Consultar los registros de la bitácora
+            $query = "SELECT * FROM bitacora ORDER BY fecha_hora DESC";
+            $result = mysqli_query($conexion, $query);
+
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['usuario_id']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['accion']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['descripcion']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['fecha_hora']) . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "Error al realizar la consulta: " . mysqli_error($conexion);
+            }
+
+            mysqli_close($conexion);
+
+            include 'registrar_accion.php';
+// Supongamos que se acaba de subir un archivo exitosamente
+    $usuario_id = $_SESSION['usuario_id']; // ID del usuario que subió el archivo
+    $accion = 'Subida';
+    $descripcion = 'El usuario subió el archivo ' . $nombre_archivo;
+    registrarAccion($usuario_id, $accion, $descripcion);
+
+            ?>
+        </tbody>
+    </table>
+
+
 </body>
 </html> 
+
+
+  
+

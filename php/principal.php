@@ -1,26 +1,51 @@
 <?php
+session_start();
 
-    session_start();
-    if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true){
-        echo'
-            <script>
-            alert("Por Favor debes Iniciar Sesion");
-            window.location = "../index.php";
-            </script>
-            ';
+$tiempo_max_inactividad = 300; // 5 minutos = 300 segundos
+
+if (isset($_SESSION['ultimo_acceso'])) {
+    $inactivo = time() - $_SESSION['ultimo_acceso'];
+    if ($inactivo >= $tiempo_max_inactividad) {
+        session_unset();
         session_destroy();
-        die();
-
-    header("Cache-Control: no-cache, must-revalidate"); 
-        // HTTP 1.1 
-    header("Pragma: no-cache"); 
-        // HTTP 1.0 
-    header("Expires: Wen, 12 november 2024 10:48:00 GMT");
+        // Eliminar cookies 
+        setcookie('PHPSESSID', '', time() - 3600, '/');
+        echo '
+        <script>
+        alert("Tu sesión ha expirado por inactividad.");
+        window.location = "../index.php";
+        </script>
+        ';
+        exit();
     }
+}
 
+$_SESSION['ultimo_acceso'] = time();
 
-    include 'cabecera.php';
+// Establecer cookies
+setcookie("ultimo_acceso", $_SESSION['ultimo_acceso'], time() + $tiempo_max_inactividad, "/");
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    echo '
+    <script>
+    alert("Por Favor debes Iniciar Sesion");
+    window.location = "../index.php";
+    </script>
+    ';
+    session_destroy();
+    die();
+}
+
+header("Cache-Control: no-cache, must-revalidate");
+// HTTP 1.1 
+header("Pragma: no-cache");
+// HTTP 1.0 
+header("Expires: Wen, 12 november 2024 10:48:00 GMT");
+
+include 'cabecera.php';
 ?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -100,8 +125,10 @@
         .table-container { 
           max-height: 400px; /* Ajusta el tamaño según tus necesidades */ 
           overflow-y: scroll; 
-          border: 1px solid #ddd; 
-          margin-top: 200px; }
+          border: none; 
+          margin-top: 200px;
+          margin-bottom: 5px;
+        }
 
         
   /* Estilos adicionales para dispositivos móviles */
@@ -219,10 +246,10 @@ body.modal-open {
           <button class="filter-button btn_archivos" data-filter="video/mp4">Videos</button>
           <button class="filter-button btn_archivos" data-filter="audio/mp3">Audios</button>
           <button class="filter-button btn_archivos" data-filter="all">Todos los archivos</button>
-          
-          <button type="button" class="btn_archivos"><a href="prueba.php">Subir Nuevo Archivo</a></button>
           <button type="button" class="btn_archivos openModalBtn" data-modal="modal1">Cargar Archivo</button>
-
+<!-- 
+          <a href="prueba.php">Pagina de Pruebas</a>
+-->
           
           
         

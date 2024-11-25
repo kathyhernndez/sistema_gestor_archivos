@@ -8,6 +8,6 @@
         echo 'No se ha podido conectar a la Base de Datos';
     }
     */
-
+    if (!$conexion) { die("Error de conexión: " . mysqli_connect_error()); }
     
 ?>
