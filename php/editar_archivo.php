@@ -1,5 +1,7 @@
 <?php
 include 'conexion_be.php';
+include 'registrar_accion.php';
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
@@ -10,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $conexion->prepare($query);
     $stmt->bind_param("si", $nuevoNombre, $id);
     if ($stmt->execute()) {
+        registrarAccion($_SESSION['nombre_completo'], 'editar archivo', 'Un archivo se ha editado en el sistema.');
         echo "Nombre del archivo actualizado con éxito.";
     } else {
         echo "Error al actualizar el nombre del archivo: " . $stmt->error;

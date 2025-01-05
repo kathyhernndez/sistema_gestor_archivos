@@ -12,7 +12,8 @@ if ($result) {
             echo "<td>" . htmlspecialchars($row['tipo_archivo']) . "</td>"; 
             echo "<td><a href='" . htmlspecialchars($row['ruta_archivo']) . "' target='_blank'>Ver Archivo</a></td>"; 
             echo "<td>" . htmlspecialchars($row['fecha_subida']) . "</td>"; 
-            echo "<td>"; 
+            echo "<td>";
+            echo "<button onclick='descargarArchivo('" . $row['ruta_archivo'] . "')'>Descargar</button>";
             echo "<button onclick='eliminarArchivo(" . $row['id'] . ")'>Eliminar</button>"; 
             echo "<button onclick='editarArchivo(" . $row['id'] . ")'>Editar</button>"; 
             echo "</td>";

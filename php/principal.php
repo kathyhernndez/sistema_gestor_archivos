@@ -1,11 +1,16 @@
 <?php
 session_start();
+include 'conexion_be.php';
+include 'registrar_accion.php';
+
+
 
 $tiempo_max_inactividad = 300; // 5 minutos = 300 segundos
 
 if (isset($_SESSION['ultimo_acceso'])) {
     $inactivo = time() - $_SESSION['ultimo_acceso'];
     if ($inactivo >= $tiempo_max_inactividad) {
+        registrarAccion($_SESSION['nombre_completo'], 'sesion finalizada', 'La sesión ha expirado por inactividad.');
         session_unset();
         session_destroy();
         // Eliminar cookies 
@@ -41,6 +46,7 @@ header("Cache-Control: no-cache, must-revalidate");
 header("Pragma: no-cache");
 // HTTP 1.0 
 header("Expires: Wen, 12 november 2024 10:48:00 GMT");
+
 
 include 'cabecera.php';
 ?>
@@ -115,6 +121,12 @@ include 'cabecera.php';
           border-radius: 4px;
           transition: all 400ms ease;
           margin: 5px;
+        }
+
+        .logout_btn{
+        background: none;
+        border: none;
+        color: #ffffff;
         }
 
         .tabla button:hover{
@@ -228,7 +240,8 @@ body.modal-open {
         <a href="gestion_usuarios.php">Gestionar Usuarios</a>
           <a href="#">Almacenamiento</a>
           <a href="#">Perfil</a>
-          <a class="btn" href="logout.php" placeholder="Cerrar Sesion">Cerrar Sesion</a>
+          <a href="ver_bitacora.php">Bitacora</a>
+          <button onclick="confirmLogout()" class="logout_btn">Cerrar Sesión</button>
         </nav>
       </div>
       
@@ -248,9 +261,9 @@ body.modal-open {
           <button class="filter-button btn_archivos" data-filter="audio/mp3,audio/mpeg">Audios</button>
           <button class="filter-button btn_archivos" data-filter="all">Todos los archivos</button>
           <button type="button" class="btn_archivos openModalBtn" data-modal="modal1">Cargar Archivo</button>
-<!-- 
-          <a href="prueba.php">Pagina de Pruebas</a>
--->
+
+          
+
           
           
         
@@ -281,6 +294,11 @@ body.modal-open {
 
         </div>
     <script>
+
+  /* Función descargar Archivos */ 
+function descargarArchivo(ruta) 
+{ 
+  window.location.href = 'descargar_archivo.php?archivo=' + encodeURIComponent(ruta);}
 
 /* Funcion subir Archivos */
 
@@ -355,7 +373,13 @@ window.onclick = function(event) {
     if (event.target.classList.contains('modal_content')) {
         event.target.style.display = "none";
     }
-}
+};
+
+/* Función confirmar cierre de sesión */ 
+function confirmLogout() { 
+  if (confirm('¿Estás seguro de que deseas cerrar sesión?')) 
+  { window.location.href = 'logout.php'; } }
+
 
     </script>
     <script src="https://unpkg.com/scrollreveal"></script>
@@ -366,6 +390,3 @@ window.onclick = function(event) {
 </html>
   
     
-
-    
-

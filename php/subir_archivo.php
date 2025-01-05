@@ -1,5 +1,7 @@
 <?php
 include 'conexion_be.php';
+include 'registrar_accion.php';
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre_archivo = $_POST['nombre_archivo'];
@@ -37,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Vincular parámetros y ejecutar la consulta
             $stmt->bind_param("sss", $nombre_archivo, $tipo_archivo, $ruta_archivo);
             if ($stmt->execute()) {
+                registrarAccion($_SESSION['nombre_completo'], 'carga de archivo', 'Un nuevo archivo se ha cargado al sistema.');
                 echo "Archivo subido y registrado con éxito.";
             } else {
                 echo "Error al ejecutar la consulta: " . $stmt->error;
