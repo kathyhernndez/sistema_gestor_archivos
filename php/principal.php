@@ -241,6 +241,7 @@ body.modal-open {
           <a href="#">Almacenamiento</a>
           <a href="#">Perfil</a>
           <a href="ver_bitacora.php">Bitacora</a>
+          <button onclick="confirmBackup()" class="logout_btn">Respaldar</button> 
           <button onclick="confirmLogout()" class="logout_btn">Cerrar Sesión</button>
         </nav>
       </div>
@@ -295,10 +296,6 @@ body.modal-open {
         </div>
     <script>
 
-  /* Función descargar Archivos */ 
-function descargarArchivo(ruta) 
-{ 
-  window.location.href = 'descargar_archivo.php?archivo=' + encodeURIComponent(ruta);}
 
 /* Funcion subir Archivos */
 
@@ -379,6 +376,12 @@ window.onclick = function(event) {
 function confirmLogout() { 
   if (confirm('¿Estás seguro de que deseas cerrar sesión?')) 
   { window.location.href = 'logout.php'; } }
+
+
+/* Función confirmar respaldo */ 
+function confirmBackup() { 
+  if (confirm('¿Estás seguro de que deseas hacer un respaldo?')) 
+  { window.location.href = 'backup.php'; } }
 
 
     </script>
