@@ -3,18 +3,22 @@ session_start();
 include 'conexion_be.php';
 include 'registrar_accion.php';
 
-
-
 $tiempo_max_inactividad = 300; // 5 minutos = 300 segundos
 
 if (isset($_SESSION['ultimo_acceso'])) {
     $inactivo = time() - $_SESSION['ultimo_acceso'];
     if ($inactivo >= $tiempo_max_inactividad) {
         registrarAccion($_SESSION['nombre_completo'], 'sesion finalizada', 'La sesión ha expirado por inactividad.');
+        
+        // Establecer la sesión como inactiva en la base de datos antes de destruir la sesión
+        $usuario_id = $_SESSION['usuario_id'];
+        mysqli_query($conexion, "UPDATE usuarios SET session_active=0 WHERE id=$usuario_id");
+        
+        // Destruir la sesión y las cookies
         session_unset();
         session_destroy();
-        // Eliminar cookies 
         setcookie('PHPSESSID', '', time() - 3600, '/');
+        
         echo '
         <script>
         alert("Tu sesión ha expirado por inactividad.");
@@ -46,7 +50,6 @@ header("Cache-Control: no-cache, must-revalidate");
 header("Pragma: no-cache");
 // HTTP 1.0 
 header("Expires: Wen, 12 november 2024 10:48:00 GMT");
-
 
 include 'cabecera.php';
 ?>

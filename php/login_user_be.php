@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include 'conexion_be.php';
 include 'registrar_accion.php';
 
@@ -8,21 +7,28 @@ $correo  = $_POST['correo'];
 $clave = $_POST['clave'];
 $clave = hash('sha512', $clave);
 
+
+// Verificar si el usuario tiene una sesión activa en la base de datos
+$validar_sesion = mysqli_query($conexion, "SELECT * FROM usuarios WHERE correo='$correo' AND session_active=1");
+
+if (mysqli_num_rows($validar_sesion) > 0) {
+    echo '
+    <script>
+        alert("El usuario ya tiene una sesión iniciada.");
+        window.location = "../index.php";
+    </script>
+    ';
+    exit();
+}
+
+
 $validar_login = mysqli_query($conexion, "SELECT * FROM usuarios WHERE correo='$correo' AND clave='$clave'");
 
 if (mysqli_num_rows($validar_login) > 0) {
     $row = mysqli_fetch_assoc($validar_login);
 
-    // Verificar si el usuario ya tiene una sesión iniciada
-    if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == $row['id']) {
-        echo '
-        <script>
-            alert("El usuario ya tiene una sesión iniciada.");
-            window.location = "../index.php";
-        </script>
-        ';
-        exit();
-    }
+    // Establecer la sesión como activa en la base de datos
+    mysqli_query($conexion, "UPDATE usuarios SET session_active=1 WHERE id=" . $row['id']);
 
     // Almacenar la información de la sesión
     $_SESSION['usuario_id'] = $row['id'];
