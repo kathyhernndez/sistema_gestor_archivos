@@ -1,8 +1,9 @@
 <?php
+date_default_timezone_set('America/Caracas');
 include 'conexion_be.php';
 
 // Nombre del archivo de respaldo de la base de datos
-$backupFile = 'respaldo_db_' . date('Y-m-d') . '.sql';
+$backupFile = 'respaldo_db_' . date('Y-m-d_H-i') . '.sql';
 
 // Comando para crear el respaldo de la base de datos
 $command = "mysqldump --host=localhost --user=root --password='' gestor_archivos > {$backupFile}";
@@ -56,5 +57,4 @@ readfile($zipFile);
 unlink($zipFile);
 
 echo "Respaldo completo creado con éxito.\n";
-
 ?>
