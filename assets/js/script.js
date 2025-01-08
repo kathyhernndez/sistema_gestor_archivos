@@ -59,15 +59,25 @@ function register() {
 
 }
 
-/* funcion validar contrasena */
+ // Marcar que la sesión está activa al cargar la página
+ sessionStorage.setItem('sessionActive', 'true');
 
-document.getElementById('registro-form').addEventListener('submit', function(event) { var password = document.getElementById('password').value; 
-    var confirmPassword = document.getElementById('confirm_password').value; 
-    if (password !== confirmPassword) 
-        { alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.'); 
-            event.preventDefault(); }});
+ // Registrar evento antes de que la página se cierre o recargue
+ window.addEventListener('beforeunload', function (e) {
+     if (!navigator.sendBeacon) {
+         // Si navigator.sendBeacon no está disponible, no hacer nada
+         return;
+     }
 
+     // Comprobar si la bandera de sesión está activa
+     if (sessionStorage.getItem('sessionActive') === 'true') {
+         // Eliminar la bandera antes de cerrar el navegador
+         sessionStorage.removeItem('sessionActive');
 
+         // Enviar señal de cierre de sesión
+         navigator.sendBeacon('logout.php');
+     }
+ });
             
 
 

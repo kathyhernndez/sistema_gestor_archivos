@@ -21,7 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Crear una nueva instancia de ZipArchive
     $zip = new ZipArchive();
     if ($zip->open($zipFile, ZipArchive::CREATE) !== TRUE) {
-        exit("No se puede abrir el archivo ZIP\n");
+        $_SESSION['message'] = "No se puede abrir el archivo ZIP.";
+        echo '<script>
+            alert("No se puede abrir el archivo ZIP.");
+            window.location.href = "principal.php";
+        </script>';
+        exit();
     }
 
     // Añadir el archivo de respaldo de la base de datos al ZIP
@@ -56,43 +61,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header('Content-Length: ' . filesize($zipFile));
     readfile($zipFile);
 
-    // Eliminar el archivo ZIP del servidor después de la descarga
+    // Eliminar el archivo ZIP del servidor después de enviarlo al cliente
     unlink($zipFile);
 
-    // Verificar si se debe vaciar la carpeta de uploads
-    if (isset($_POST['vaciar_uploads']) && $_POST['vaciar_uploads'] == '1') {
-        // Eliminar los archivos en la carpeta de uploads
-        $files = scandir($uploadsDir);
-        foreach ($files as $file) {
-            if ($file != '.' && $file != '..') {
-                if (is_dir($uploadsDir . $file)) {
-                    rmdir($uploadsDir . $file);
-                } else {
-                    unlink($uploadsDir . $file);
-                }
-            }
-        }
-        // Eliminar los registros en la tabla 'archivos'
-        mysqli_query($conexion, "DELETE FROM archivos");
-    }
-
-    echo "Respaldo completo creado con éxito.\n";
+    $_SESSION['message'] = "Respaldo completo creado con éxito.";
 
     // Registrar la acción de respaldo
     if (isset($_SESSION['nombre_completo'])) {
         registrarAccion($_SESSION['nombre_completo'], 'respaldo de archivos', 'El usuario ha hecho un Backup de los archivos del sistema.');
     }
+
+    echo '<script>
+        alert("Respaldo completo creado con éxito.");
+        window.location.href = "principal.php";
+    </script>';
+    exit();
+
 } else {
     // Mostrar el formulario de confirmación
     echo '
-    <form method="post" action="">
-        <p>¿Deseas vaciar la carpeta de archivos subidos antes de hacer el backup?</p>
-        <input type="radio" id="si" name="vaciar_uploads" value="1">
-        <label for="si">Sí</label><br>
-        <input type="radio" id="no" name="vaciar_uploads" value="0">
-        <label for="no">No</label><br><br>
-        <input type="submit" value="Hacer Backup">
-    </form>
-    ';
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <div class="container mt-5">
+        <form method="post" action="">
+            <div class="form-group">
+                <p>¿Deseas vaciar la carpeta de archivos subidos antes de hacer el backup?</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="si" name="vaciar_uploads" value="1" required>
+                    <label class="form-check-label" for="si">Sí</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="no" name="vaciar_uploads" value="0" required>
+                    <label class="form-check-label" for="no">No</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Hacer Backup</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $("form").on("submit", function() {
+            setTimeout(function() {
+                window.location.href = "principal.php";
+            }, 1000);
+        });
+    });
+    </script>';
 }
 ?>

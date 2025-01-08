@@ -2,6 +2,8 @@
 session_start();
 include 'conexion_be.php';
 include 'registrar_accion.php';
+include 'verificar_almacenamiento.php';
+
 
 $tiempo_max_inactividad = 300; // 5 minutos = 300 segundos
 
@@ -52,6 +54,20 @@ header("Pragma: no-cache");
 header("Expires: Wen, 12 november 2024 10:48:00 GMT");
 
 include 'cabecera.php';
+
+// Verificar si hay un mensaje de sesión y mostrarlo
+if (isset($_SESSION['message'])) {
+  echo '
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+      ' . $_SESSION['message'] . '
+  </div>';
+  unset($_SESSION['message']);
+}
+
+if ($message) { echo ' 
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+   ' . $message . ' </div> '; }
+
 ?>
 
 
@@ -60,8 +76,10 @@ include 'cabecera.php';
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 
@@ -241,12 +259,11 @@ body.modal-open {
         </div>
     
         <nav class="menu">
-        <a href="gestion_usuarios.php">Gestionar Usuarios</a>
-          <a href="#">Almacenamiento</a>
-          <a href="#">Perfil</a>
+          <a href="gestion_usuarios.php">Gestionar Usuarios</a>
+          <a><button onclick="confirmBackup()" class="logout_btn">Hacer respaldo</button> </a>
           <a href="ver_bitacora.php">Bitacora</a>
-          <button onclick="confirmBackup()" class="logout_btn">Respaldar</button> 
-          <button onclick="confirmLogout()" class="logout_btn">Cerrar Sesión</button>
+          <a><button onclick="confirmLogout()" class="logout_btn">Cerrar Sesión</button></a>
+          
         </nav>
       </div>
       
@@ -278,6 +295,8 @@ body.modal-open {
         
       </div>
     <!--modal boton-->
+    
+    <!--modal boton-->
     <div id="modal1" class="modal_content">
         <div class="modal-content blog-post">
           <span class="close" data-modal="modal1">&times;</span>
@@ -285,17 +304,21 @@ body.modal-open {
           <!--cargar archivos formulario-->
           <h3 class="intro"><strong>Cargar Nuevo Archivo</strong></h3>
           <div class="content">
+          <?php if ($message): ?> 
+            <div class="alert alert-warning" role="alert"> 
+              <?php echo $message; ?> 
+            </div> 
+          <?php endif; ?>
           <form id="uploadForm" enctype="multipart/form-data"> 
     <label for="nombre_archivo">Nombre del archivo:</label> 
     <input type="text" name="nombre_archivo" id="nombre_archivo" required maxlength="150"> 
     <br> 
     <label for="archivo">Archivo:</label> 
-    <input type="file" name="archivo" id="archivo" required> 
+    <input type="file" name="archivo" id="archivo" required <?php echo $buttonDisabled ? 'disabled' : ''; ?>> 
     <br> 
-    <button type="submit">Subir</button> 
+    <button type="submit" <?php echo $buttonDisabled ? 'disabled' : ''; ?>>Subir</button>
     </form> 
           </div>
-          
 
         </div>
     <script>
@@ -388,12 +411,17 @@ function confirmBackup() {
   { window.location.href = 'backup.php'; } }
 
 
+
+
     </script>
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="../assets/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   </body>
 
 </html>
   
-    

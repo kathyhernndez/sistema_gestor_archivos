@@ -15,3 +15,6 @@ COMO EVITAR REPETIR DATOS EN SQL:
 
 ENCRIPTAR CONTRASENA
    $password = hash('sha512', $password);
+
+
+// SI FUNCIONA NO LO TOQUES //////////////////////////////////////////////////////////////////

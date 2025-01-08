@@ -67,6 +67,8 @@
         font-size: 26px;
     }
     
+
+
     .caja__trasera div button {
         padding: 10px 40px;
         border: 2px solid var(--text-light);
@@ -142,6 +144,8 @@
         display: none;
     }
 
+
+
 select:focus{
    border-radius: 3px;
    border-color: #d3892f; 
@@ -163,6 +167,50 @@ label {
     margin-bottom: 5px; 
     color: #d3892f; }
     
+/*MENSAJES DE ALERTAS*/
+/* styles.css */
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alert-dismissible {
+  padding-right: 35px;
+}
+
+.alert-dismissible .close {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  padding: 15px 15px;
+  color: inherit;
+}
+
+
+
     /*Trabajando en el Responsive Desing*/
     
     @media screen and (max-width: 850px) {

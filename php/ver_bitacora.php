@@ -2,6 +2,8 @@
 session_start();
 include 'conexion_be.php';
 include 'registrar_accion.php';
+include 'verificar_almacenamiento.php';
+
 
 $tiempo_max_inactividad = 300; // 5 minutos = 300 segundos
 
@@ -52,7 +54,22 @@ header("Pragma: no-cache");
 header("Expires: Wen, 12 november 2024 10:48:00 GMT");
 
 include 'cabecera.php';
+
+// Verificar si hay un mensaje de sesión y mostrarlo
+if (isset($_SESSION['message'])) {
+  echo '
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+      ' . $_SESSION['message'] . '
+  </div>';
+  unset($_SESSION['message']);
+}
+
+if ($message) { echo ' 
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+   ' . $message . ' </div> '; }
+
 ?>
+
 
 
 
@@ -208,6 +225,12 @@ a:hover{
         ?>
     </tbody>
 </table>
+<script>
+   
 
+    </script>
+     <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>
