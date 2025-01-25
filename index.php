@@ -51,12 +51,12 @@
                     <button>Entrar</button>
                 </form>
                 <!--Registro-->
-                <form action="php/recuperar__contrasena" method="POST" class="formulario__register" id="registro-form">
+                <form action="php/send_token.php"" method="POST" class="formulario__register" id="registro-form">
                     <h2>Recuperar Contraseña</h2>
-                    <label for="">*Ingresa tu correo electrónico y 
+                    <label for="email">*Ingresa tu correo electrónico y 
                     se te enviará un códgio temporal para acceder y restaurar la contraseña.</label>
-                    <input type="email" placeholder="Ingresa un correo electrónico válido" name="correo" required minlength="12" maxlength="64">
-                    <button>Enviar Código</button>
+                    <input type="email" id="email" name="email" placeholder="Ingresa un correo electrónico válido" name="correo" required minlength="12" maxlength="64">
+                    <button type="submit">Enviar Código</button>
                 </form>
             </div>
         </div>

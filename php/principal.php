@@ -5,7 +5,7 @@ include 'registrar_accion.php';
 include 'verificar_almacenamiento.php';
 
 
-$tiempo_max_inactividad = 300; // 5 minutos = 300 segundos
+$tiempo_max_inactividad = 250; // 5 minutos = 300 segundos
 
 if (isset($_SESSION['ultimo_acceso'])) {
     $inactivo = time() - $_SESSION['ultimo_acceso'];
